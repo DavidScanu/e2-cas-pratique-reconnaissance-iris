@@ -4,11 +4,14 @@
 
 Ceci est le dépôt du **cas pratique** présenté pour le passage de titre de l'école Microsoft IA par Simplon et Isen, promotion 2023-2024 de Caen. 
 
----
+## TODO
 
-## Description de l'école Microsoft 
-
-
+- Quelques problèmes sur le notebook 'ID gauche'
+- Notebook : 'ID right' classifier
+- Streamlit app
+- Rapport
+- Article blog dev/medium
+- Update readme.md
 
 ## Description du cas pratique
 
@@ -33,11 +36,11 @@ Cette architecture est un cas de **Transfer Learning**. Pour créer ces modèle 
 
 Développement d'un classificateur qui détecte si l'image est un oeil gauche ou un oeil droit.
 
-### Partie 2 : 
+### Partie 2 : Classification ID employé (oeil gauche)
 
 Développement d'un **classificateur** qui retrouve l'identifiant d'un employé à partir de l'image de son oeil gauche.
 
-### Partie 3 : 
+### Partie 3 : Classification ID employé (oeil droit)
 
 Développement d'un **classificateur** qui retrouve l'identifiant d'un employé à partir de l'image de son oeil droit.
 
@@ -55,3 +58,6 @@ Projet développé par **David Scanu**. Étudiant en intelligence artificielle �
 - Dev
 - Medium 
 - Instagram
+- LinkedIn
+
+## Description de l'école Microsoft 
