@@ -11,10 +11,17 @@ import datetime
 import shutil
 import io
 import pickle
+import json
 
-# import tensorflow as tf
+import tensorflow as tf
 from sklearn.preprocessing import LabelEncoder
-# import keras
+
+# Fucntions
+def check_file_exists(file_path):
+  if os.path.exists(file_path):
+    return True
+  else:
+    return False
 
 
 # Variables 
@@ -23,17 +30,33 @@ img_height = 240
 img_channels = 3
 img_dim = (img_height, img_width, img_channels)
 
-lr_classifier = "./models/lr_classifier.h5"
-# id_left_classifier_path = "./models/lr_classifier.keras"
 
-def check_file_exists(file_path):
-  if os.path.exists(file_path):
-    return True
-  else:
-    return False
+# Employees JSON
+with open("employees_info.json", 'r') as f:
+  employees_dict = json.load(f)
 
-print("LR CLassifier file exists : ", check_file_exists(lr_classifier))
-# print("ID Left CLassifier file exists : ", check_file_exists(id_left_classifier_path))
+# LR Model
+lr_classifier_path = "./models/lr_classifier.h5"
+lr_classifier_restored = tf.keras.models.load_model(lr_classifier_path)
+# LR Label Encoder
+lr_label_encoder_path = "./models/lr_label_encoder.pkl"
+with open(lr_label_encoder_path, 'rb') as f:
+  lr_label_encoder = pickle.load(f) # deserialize using load()
+
+
+def inference(image_file, label_encoder):
+  """
+  Fonction qui réalise une prédiction à partir d'un fichier image (ndarray ou PIL Image).
+  """
+  # Ajout d'une dimension car le modèle accepte une liste d'images cad un objet à 4 dimensions.
+  image_file_more_dims = np.expand_dims(image_file, axis=0)
+  # Inférence
+  pred = np.argmax(lr_classifier_restored.predict(image_file_more_dims), axis=1)[0]
+  # Désencodage de l'index de classe en classe (string)
+  pred_class_str = label_encoder.classes_[pred]
+  # Retourne une string
+  return pred_class_str
+
 
 
 # Streamlit App
@@ -48,10 +71,6 @@ st.header("Reconnaissance d'iris 👀", divider='rainbow')
 st.markdown("Une applicaton pour la **reconnaissance d’oeil** pour authentifier vos employés.")
 st.markdown("""Développé par **David Scanu** &mdash; Normand'IA 2023-2024""")
 st.divider()
-st.markdown('''
-    :red[Streamlit] :orange[can] :green[write] :blue[text] :violet[in]
-    :gray[pretty] :rainbow[colors].''')
-st.divider()
 
 # List
 image = st.file_uploader(
@@ -64,22 +83,21 @@ if image is not None:
   bytes_data = image.read() # bytes
   image_pil = Image.open(io.BytesIO(bytes_data)) # PIL Object
   st.image(image_pil)
-  image_nd = np.array(image_pil)  
-  image_nd_2 = np.array([image_nd])
-  print(image_nd)
-  print(image_nd.shape)
-  print(image_nd_2.shape)
 
-  # prediction
-#   pred = [np.argmax(v) for v in lr_classifier.predict(np.array([image_nd]))]
-#   st.write(pred)
-#   label_enc_lr.classes_[y_test_pred_test][0]
+  with st.spinner('Wait for it...'):
+    lr_pred = inference(image_pil, lr_label_encoder)
+  if lr_pred == 'left':
+    st.success('Left!')
+  elif lr_pred == 'right':
+    st.success('Right!')
 
-#   pred_lr_enc = np.argmax(lr_classifier.predict(image_nd))
-#   print(pred_lr_enc)
+  # progress_text = "Operation in progress. Please wait."
+  # my_bar = st.progress(0, text=progress_text)
 
-
-#   pred_lr = label_enc_lr.classes_[pred_lr_enc]
-#   st.write(pred_lr)
+  # for percent_complete in range(100):
+  #   time.sleep(0.01)
+  #   my_bar.progress(percent_complete + 1, text=progress_text)
+  # time.sleep(1)
+  # my_bar.empty()
 
 
