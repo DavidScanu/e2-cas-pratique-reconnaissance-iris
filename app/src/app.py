@@ -66,9 +66,10 @@ st.set_page_config(
   layout="centered"
 )
 
+
 # Header
 st.header("Reconnaissance d'iris 👀", divider='rainbow')
-st.markdown("Une applicaton pour la **reconnaissance d’oeil** pour authentifier vos employés.")
+st.markdown("Une applicaton pour la **reconnaissance d’iris** pour authentifier vos employés.")
 st.markdown("""Développé par **David Scanu** &mdash; Normand'IA 2023-2024""")
 st.divider()
 
