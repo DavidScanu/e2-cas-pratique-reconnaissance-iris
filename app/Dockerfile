@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 
 COPY /src /streamlit-app
 
-CMD streamlit run app.py --server.port 8080
+CMD streamlit run app.py --server.port $PORT
