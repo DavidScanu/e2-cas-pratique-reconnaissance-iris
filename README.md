@@ -9,8 +9,9 @@ Ceci est le dépôt du **cas pratique** présenté pour le passage de titre de l
 - Quelques problèmes sur le notebook 'ID gauche'
 - Notebook : 'ID right' classifier
 - Streamlit app
+- Slides
 - Rapport
-- Article blog dev/medium
+- Article blog (dev/medium)
 - Update readme.md
 
 ## Description du cas pratique
@@ -21,8 +22,8 @@ Vous êtes un développeur IA, votre entreprise vous a confié la mission de **d
 
 - **Consignes** : ensemble des consignes et des données pour mener le projet.
 - **Notebooks** : les notebooks ou sont créés et entrainé les modèles de Deep Learning. 
-- Models : les différents modèles entrainés sur les données.
-- App : application front-end pour effectuer les prédictions à partir de photos d'yeux.
+- **Modèles** : les différents modèles entrainés sur les données.
+- **Application Streamlit** : application front-end pour effectuer les prédictions à partir de photos d'yeux.
 
 ## Notebooks
 
@@ -48,16 +49,14 @@ Développement d'un **classificateur** qui retrouve l'identifiant d'un employé 
 
 Développement d'une application Streamlit pour offir une interface aux utilisateurs et réaliser des inférences à partir de photos d'oeils. 
 
-- https://streamlit.io/
+<img src="https://streamlit.io/images/brand/streamlit-logo-secondary-colormark-darktext.png" alt="Streamlit Logo" width=320>
 
 ## A propos 
 
 Projet développé par **David Scanu**. Étudiant en intelligence artificielle 🤖 à l'**École Microsoft IA par Simplon et ISEN**, 1ère promotion de Caen.
 
-- Twitter
-- Dev
-- Medium 
-- Instagram
-- LinkedIn
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/davidscanu14/)
 
-## Description de l'école Microsoft 
+[![image alt text](https://img.shields.io/badge/dev.to-0A0A0A?style=for-the-badge&logo=dev.to&logoColor=white)](https://dev.to/davidscanu)
+
+[![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://davidscanu.medium.com/)
