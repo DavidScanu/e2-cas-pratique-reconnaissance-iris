@@ -103,35 +103,51 @@ st.set_page_config(
 st.header("Reconnaissance d'iris 👀", divider='rainbow')
 st.markdown("Une applicaton pour la **reconnaissance d’iris** pour authentifier vos employés.")
 st.markdown("""Développé par **David Scanu** &mdash; Normand'IA 2023-2024""")
-st.divider()
 
-# List
+# Image Uploader
+st.markdown("## Choisissez une image")
 image = st.file_uploader(
-    "Choisissez une image",
+    label="Choisissez une image",
     type=['png', 'jpg', 'jpeg', 'bmp'],
     accept_multiple_files=False,
-    label_visibility="visible"
+    label_visibility="collapsed"
 )
 if image is not None:
     bytes_data = image.read() # bytes
     image_pil = Image.open(io.BytesIO(bytes_data)) # PIL Object
-    # Montrer l'image dans le navigateur
-    st.image(image_pil)
     with st.spinner('Wait for it...'):
         # Détection du côté de l'oeil
         lr_pred = inference_lr(image_pil, lr_label_encoder)
         # Oeil gauche
         if lr_pred == 'left':
             st.success('Oeil détecté : Gauche')
-            id_employee = inference_id_left(image_pil)
-            dict_employee = find_employee_infos(id_employee)
-            st.markdown(f"""
-                        # {dict_employee['nom']}
-                        - ID employé(e) : {id_employee}
-                        - Poste : {dict_employee['poste']} 
-                        - Année d'embauche : {dict_employee['annee_embauche']}
-                        - Genre : {dict_employee['genre']}
-                        """)
         # Oeil droite
         elif lr_pred == 'right':
             st.success('Right!')
+
+
+col1, col2 = st.columns(2)
+
+with col1:
+    if image is not None:
+        # Montrer l'image dans le navigateur
+        st.image(image_pil)
+
+with col2:
+    # Détection ID + informations de l'employé
+    if image is not None:
+        with st.spinner('Wait for it...'):
+            # Oeil gauche
+            if lr_pred == 'left':
+                id_employee = inference_id_left(image_pil)
+                dict_employee = find_employee_infos(id_employee)
+                st.markdown(f"""
+                            # {dict_employee['nom']}
+                            - ID employé(e) : {id_employee}
+                            - Poste : {dict_employee['poste']} 
+                            - Année d'embauche : {dict_employee['annee_embauche']}
+                            - Genre : {dict_employee['genre']}
+                            """)
+            # Oeil droite
+            elif lr_pred == 'right':
+                st.success('Right!')
