@@ -6,8 +6,6 @@ COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY . /streamlit-app
-
-RUN cd /streamlit-app/src
+COPY ./src /streamlit-app
 
 CMD streamlit run app.py
