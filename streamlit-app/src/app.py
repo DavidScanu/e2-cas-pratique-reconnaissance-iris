@@ -52,11 +52,13 @@ def inference_lr(image_file, label_encoder):
     # Ajout d'une dimension car le modèle accepte une liste d'images cad un objet à 4 dimensions.
     image_file_more_dims = np.expand_dims(image_file, axis=0)
     # Inférence
-    pred = np.argmax(lr_classifier_restored.predict(image_file_more_dims), axis=1)[0]
+    pred = lr_classifier_restored.predict(image_file_more_dims)
+    pred_max = np.argmax(pred, axis=1)[0]
     # Désencodage de l'index de classe en classe (string)
-    pred_class_str = label_encoder.classes_[pred]
+    pred_class = label_encoder.classes_[pred_max]
+    pred_score = np.max(pred)
     # Retourne une string
-    return pred_class_str
+    return pred_class, pred_score
 
 # ID Employé (gauche)
 # ID Left Classifier Model
@@ -73,11 +75,12 @@ def inference_id_left(image_file) -> int:
     """
     # Ajout d'une dimension car le modèle accepte une liste d'images cad un objet à 4 dimensions.
     image_file_more_dims = np.expand_dims(image_file, axis=0)
-    # Inférence, 
-    id_employee = int(np.argmax(id_left_classifier_restored.predict(image_file_more_dims), axis=1)[0])
-    print(id_left_classifier_restored.predict(image_file_more_dims))
+    # Inférence
+    pred = id_left_classifier_restored.predict(image_file_more_dims)
+    pred_class = int(np.argmax(pred, axis=1)[0])
+    pred_score = np.max(pred)
     # Retourne l'identifiant de l'employé (int)
-    return id_employee
+    return pred_class, pred_score
 
 def find_employee_infos(id_employee):
     """
@@ -91,21 +94,21 @@ def find_employee_infos(id_employee):
 
 
 
+
+
 # Streamlit App
 st.set_page_config(
-    page_title="Reconnaissance d'iris",
-    page_icon="👀",
+    page_title="Eye Detector",
+    page_icon=":eye-in-speech-bubble:",
     layout="centered"
 )
 
-
 # Header
-st.header("Reconnaissance d'iris 👀", divider='rainbow')
-st.markdown("Une applicaton pour la **reconnaissance d’iris** pour authentifier vos employés.")
-st.markdown("""Développé par **David Scanu** &mdash; Normand'IA 2023-2024""")
+st.header(":eye-in-speech-bubble: Eye Detector", divider='rainbow')
+st.markdown("Une applicaton de **reconnaissance d’iris** pour authentifier vos employés.")
 
 # Image Uploader
-st.markdown("## Choisissez une image")
+st.markdown("### Choisissez une image")
 image = st.file_uploader(
     label="Choisissez une image",
     type=['png', 'jpg', 'jpeg', 'bmp'],
@@ -117,14 +120,13 @@ if image is not None:
     image_pil = Image.open(io.BytesIO(bytes_data)) # PIL Object
     with st.spinner('Wait for it...'):
         # Détection du côté de l'oeil
-        lr_pred = inference_lr(image_pil, lr_label_encoder)
+        lr_pred_class, lr_pred_score = inference_lr(image_pil, lr_label_encoder)
         # Oeil gauche
-        if lr_pred == 'left':
-            st.success('Oeil détecté : Gauche')
+        if lr_pred_class == 'left':
+            st.success(f"Oeil détecté : Gauche &mdash; (Score de prédiction : {lr_pred_score:.2%})")
         # Oeil droite
-        elif lr_pred == 'right':
+        elif lr_pred_class == 'right':
             st.success('Right!')
-
 
 col1, col2 = st.columns(2)
 
@@ -138,16 +140,25 @@ with col2:
     if image is not None:
         with st.spinner('Wait for it...'):
             # Oeil gauche
-            if lr_pred == 'left':
-                id_employee = inference_id_left(image_pil)
-                dict_employee = find_employee_infos(id_employee)
+            if lr_pred_class == 'left':
+                employee_id, employee_score = inference_id_left(image_pil)
+                dict_employee = find_employee_infos(employee_id)
                 st.markdown(f"""
                             # {dict_employee['nom']}
-                            - ID employé(e) : {id_employee}
+                            - ID employé(e) : {employee_id}
                             - Poste : {dict_employee['poste']} 
                             - Année d'embauche : {dict_employee['annee_embauche']}
                             - Genre : {dict_employee['genre']}
                             """)
+                st.caption(f"Score de prédiction : {employee_score:.2%}")
             # Oeil droite
-            elif lr_pred == 'right':
+            elif lr_pred_class == 'right':
                 st.success('Right!')
+
+st.divider()
+"""
+*Application développée par [David Scanu](https://dev.to/davidscanu) &mdash; Normand'IA 2023-2024*
+
+Notebooks et code disponibles sur [GitHub](https://github.com/DavidScanu/cas-pratique-reconnaissance-iris)
+
+"""
