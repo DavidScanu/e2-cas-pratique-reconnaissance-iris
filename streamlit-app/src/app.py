@@ -104,8 +104,6 @@ st.header("Reconnaissance d'iris 👀", divider='rainbow')
 st.markdown("Une applicaton pour la **reconnaissance d’iris** pour authentifier vos employés.")
 st.markdown("""Développé par **David Scanu** &mdash; Normand'IA 2023-2024""")
 st.divider()
-st.write(employees_dict)
-st.divider()
 
 # List
 image = st.file_uploader(
@@ -117,25 +115,23 @@ image = st.file_uploader(
 if image is not None:
     bytes_data = image.read() # bytes
     image_pil = Image.open(io.BytesIO(bytes_data)) # PIL Object
+    # Montrer l'image dans le navigateur
     st.image(image_pil)
-
     with st.spinner('Wait for it...'):
+        # Détection du côté de l'oeil
         lr_pred = inference_lr(image_pil, lr_label_encoder)
+        # Oeil gauche
         if lr_pred == 'left':
             st.success('Oeil détecté : Gauche')
             id_employee = inference_id_left(image_pil)
-            st.success(f"ID de l'employé : {id_employee}")
-            st.write(find_employee_infos(id_employee))
-
+            dict_employee = find_employee_infos(id_employee)
+            st.markdown(f"""
+                        # {dict_employee['nom']}
+                        - ID employé(e) : {id_employee}
+                        - Poste : {dict_employee['poste']} 
+                        - Année d'embauche : {dict_employee['annee_embauche']}
+                        - Genre : {dict_employee['genre']}
+                        """)
+        # Oeil droite
         elif lr_pred == 'right':
             st.success('Right!')
-
-
-    # progress_text = "Operation in progress. Please wait."
-    # my_bar = st.progress(0, text=progress_text)
-
-    # for percent_complete in range(100):
-    #   time.sleep(0.01)
-    #   my_bar.progress(percent_complete + 1, text=progress_text)
-    # time.sleep(1)
-    # my_bar.empty()

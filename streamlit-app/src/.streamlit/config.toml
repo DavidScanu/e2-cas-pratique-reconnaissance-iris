@@ -2,4 +2,4 @@
 port = 5002
 
 [theme]
-base="dark"
+base="base"
