@@ -135,7 +135,7 @@ if image is not None:
             st.success(f"Oeil détecté : Gauche &mdash; (Score de prédiction : {lr_pred_score:.2%})")
         # Oeil droite
         elif lr_pred_class == 'right':
-            st.success('Right!')
+            st.success(f"Oeil détecté : Droit &mdash; (Score de prédiction : {lr_pred_score:.2%})")
 
 col1, col2 = st.columns(2)
 
