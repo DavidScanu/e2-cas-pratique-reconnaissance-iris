@@ -4,26 +4,16 @@
 
 Ceci est le dépôt du **cas pratique** présenté pour le passage de titre de l'école Microsoft IA par Simplon et Isen, promotion 2023-2024 de Caen. 
 
-## TODO
-
-- Quelques problèmes sur le notebook 'ID gauche'
-- Notebook : 'ID right' classifier
-- Streamlit app
-- Slides
-- Rapport
-- Article blog (dev/medium)
-- Update readme.md
-
 ## Description du cas pratique
 
 Vous êtes un développeur IA, votre entreprise vous a confié la mission de **développer une interface de reconnaissance d’oeil pour une entreprise souhaitant authentifier ses 45 employés** à partir d’un scan de leurs yeux.
 
 ## Description des dossiers de ce dépôt
 
-- **Consignes** : ensemble des consignes et des données pour mener le projet.
-- **Notebooks** : les notebooks ou sont créés et entrainé les modèles de Deep Learning. 
-- **Modèles** : les différents modèles entrainés sur les données.
-- **Application Streamlit** : application front-end pour effectuer les prédictions à partir de photos d'yeux.
+- **Consignes** : Ensemble des consignes et des données pour mener le projet.
+- **Notebooks** : Les notebooks ou sont créés et entrainé les modèles de Deep Learning. 
+- **Modèles** : Les différents modèles entrainés sur les données.
+- **Application Streamlit** : Application front-end pour effectuer les prédictions à partir de photos d'yeux.
 
 ## Notebooks
 
@@ -47,9 +37,17 @@ Développement d'un **classificateur** qui retrouve l'identifiant d'un employé 
 
 ## Application Streamlit
 
-Développement d'une application Streamlit pour offir une interface aux utilisateurs et réaliser des inférences à partir de photos d'oeils. 
+Développement d'une application Streamlit pour offir une interface aux utilisateurs et réaliser des prédictions à partir de photos d'oeils. 
 
 <img src="https://streamlit.io/images/brand/streamlit-logo-secondary-colormark-darktext.png" alt="Streamlit Logo" width=320>
+
+## TODO
+
+- Update Dockerfile
+- Présentation (Slides)
+- Rapport
+- Article blog (dev/medium)
+- Update readme.md
 
 ## A propos 
 
