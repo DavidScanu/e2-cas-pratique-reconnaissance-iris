@@ -35,6 +35,8 @@ img_dim = (img_height, img_width, img_channels)
 with open("employees_info.json", 'r') as f:
     employees_dict = json.load(f)
 
+
+
 # LEFT-RIGHT
 # LR Classifier Model
 lr_classifier_path = "./models/lr_classifier.h5"
@@ -60,10 +62,16 @@ def inference_lr(image_file, label_encoder):
     # Retourne une string
     return pred_class, pred_score
 
+
 # ID Employé (gauche)
 # ID Left Classifier Model
 id_left_classifier_path = "./models/id_left_classifier.h5"
 id_left_classifier_restored = tf.keras.models.load_model(id_left_classifier_path)
+# ID Label Encoder
+lr_label_encoder_path = "./models/lr_label_encoder.pkl"
+with open(lr_label_encoder_path, 'rb') as f:
+    lr_label_encoder = pickle.load(f) # deserialize using load()
+    
 # Prédiction ID employé (oeil gauche)
 # Prédiction Gauche-Droite
 def inference_id_left(image_file) -> int:
