@@ -63,44 +63,45 @@ def inference_lr(image_file, label_encoder):
     return pred_class, pred_score
 
 
-# ID Employé (gauche)
+# ID Employé
 # ID Left Classifier Model
 id_left_classifier_path = "./models/id_left_classifier.h5"
 id_left_classifier_restored = tf.keras.models.load_model(id_left_classifier_path)
+# ID Right Classifier Model
+id_right_classifier_path = "./models/id_right_classifier.h5"
+id_right_classifier_restored = tf.keras.models.load_model(id_right_classifier_path)
 # ID Label Encoder
-lr_label_encoder_path = "./models/lr_label_encoder.pkl"
-with open(lr_label_encoder_path, 'rb') as f:
-    lr_label_encoder = pickle.load(f) # deserialize using load()
-    
-# Prédiction ID employé (oeil gauche)
-# Prédiction Gauche-Droite
-def inference_id_left(image_file) -> int:
-    """
-    Fonction de prédiction de l'ID de l'employé à partir 
-    d'un fichierimage de son oeil gauche(ndarray ou PIL Image).
+id_label_encoder_path = "./models/id_label_encoder.pkl"
+with open(id_label_encoder_path, 'rb') as f:
+    id_label_encoder = pickle.load(f) # deserialize using load()
 
-    Retourne l'ID de l'employé (str).
-    """
-    # Ajout d'une dimension car le modèle accepte une liste d'images cad un objet à 4 dimensions.
-    image_file_more_dims = np.expand_dims(image_file, axis=0)
-    # Inférence
+# Prédiction ID employé
+def id_inference(image_file, side):
+  """
+  Fonction qui réalise une prédiction à partir d'un fichier image (ndarray ou PIL Image).
+  """
+  # Ajout d'une dimension car le modèle accepte une liste d'images cad un objet à 4 dimensions.
+  image_file_more_dims = np.expand_dims(image_file, axis=0)
+  # Détection de l'index de l'ID de l'employé
+  if side == 'left':
     pred = id_left_classifier_restored.predict(image_file_more_dims)
-    pred_class = int(np.argmax(pred, axis=1)[0])
-    pred_score = np.max(pred)
-    # Retourne l'identifiant de l'employé (int)
-    return pred_class, pred_score
+  elif side == 'right':
+    pred = id_right_classifier_restored.predict(image_file_more_dims)  
+  pred_index = np.argmax(pred, axis=1)[0]
+  # Désencodage de l'index de classe en classe (string)
+  pred_class = int(id_label_encoder.classes_[pred_index])
+  # Score de la prédiction
+  pred_score = np.max(pred)
+  # Retourne l'ID de l'employé détecté (int)
+  return pred_class, pred_score
 
+
+# Obtenir les informations de l'employé à partir de son identifiant (ID)
 def find_employee_infos(id_employee):
     """
     Retourne les informations de l'employé grace à son identifiant (ID)
     """
     return employees_dict[str(id_employee)]
-
-
-# ID Employé (droite)
-# prédiction ID employé (oeil droit)
-
-
 
 
 
@@ -147,21 +148,18 @@ with col2:
     # Détection ID + informations de l'employé
     if image is not None:
         with st.spinner('Wait for it...'):
-            # Oeil gauche
-            if lr_pred_class == 'left':
-                employee_id, employee_score = inference_id_left(image_pil)
-                dict_employee = find_employee_infos(employee_id)
-                st.markdown(f"""
-                            # {dict_employee['nom']}
-                            - ID employé(e) : {employee_id}
-                            - Poste : {dict_employee['poste']} 
-                            - Année d'embauche : {dict_employee['annee_embauche']}
-                            - Genre : {dict_employee['genre']}
-                            """)
-                st.caption(f"Score de prédiction : {employee_score:.2%}")
-            # Oeil droite
-            elif lr_pred_class == 'right':
-                st.success('Right!')
+          # Prédiction ID de l'employé
+          employee_id, employee_score = id_inference(image_pil, lr_pred_class)
+          dict_employee = find_employee_infos(employee_id)
+          st.markdown(f"""
+                      # {dict_employee['nom']}
+                      - ID employé(e) : {employee_id}
+                      - Poste : {dict_employee['poste']} 
+                      - Année d'embauche : {dict_employee['annee_embauche']}
+                      - Genre : {dict_employee['genre']}
+                      """)
+          st.caption(f"Score de prédiction : {employee_score:.2%}")
+
 
 st.divider()
 """
