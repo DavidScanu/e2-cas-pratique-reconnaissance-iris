@@ -23,11 +23,10 @@ Notebooks de création des modèles de Deep Learning. L'architecture utilisée e
 
 Cette architecture est un cas de **Transfer Learning**. Pour créer ces modèle de reconnaissance d'image, nous utilisons un modèle pré-entrainé auquel nous ajoutons une ou des couches entrainables sur nos données d'entrainement (les photos d'yeux des employés).
 
-| | |
+| Notebook | Colab |
 | --- | --- | 
-| Classification oeil gauche ou droit | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weiji14/deepbedmap/] |
-| Classification ID employé | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weiji14/deepbedmap/] |
-
+| Classification oeil gauche ou droit | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1cg7OEodKzWm7EfX8qJu7TtNNoKGIWnP2?usp=sharing) |
+| Classification ID employé | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1F8Cbeu2GZvBhng_A4p9V-SdSLqAF2JEU?usp=sharing) |
 
 ### Partie 1 : Classification oeil gauche ou droit
 
