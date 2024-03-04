@@ -46,14 +46,6 @@ Développement d'une application Streamlit pour offir une interface aux utilisat
 
 <img src="https://streamlit.io/images/brand/streamlit-logo-secondary-colormark-darktext.png" alt="Streamlit Logo" width=320>
 
-## TODO
-
-- Update Dockerfile
-- Présentation (Slides)
-- Rapport
-- Article blog (dev/medium)
-- Update readme.md
-
 ## A propos 
 
 Projet développé par **David Scanu**. Étudiant en intelligence artificielle 🤖 à l'**École Microsoft IA par Simplon et ISEN**, 1ère promotion de Caen.
