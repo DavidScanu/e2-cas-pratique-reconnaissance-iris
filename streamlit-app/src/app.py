@@ -113,8 +113,10 @@ st.set_page_config(
 )
 
 # Header
+st.image('images/cover-02.jpg')
 st.header(":eye-in-speech-bubble: Eye Detector", divider='rainbow')
 st.markdown("Une applicaton de **reconnaissance d’iris** pour authentifier vos employés.")
+
 
 # Image Uploader
 st.markdown("### Choisissez une image")
@@ -160,11 +162,7 @@ with col2:
                       """)
           st.caption(f"Score de prédiction : {employee_score:.2%}")
 
-
 st.divider()
 """
-*Application développée par [David Scanu](https://dev.to/davidscanu) &mdash; Normand'IA 2023-2024*
-
-Notebooks et code disponibles sur [GitHub](https://github.com/DavidScanu/cas-pratique-reconnaissance-iris)
-
+> 🎓 Projet développé par [David Scanu](https://www.linkedin.com/in/davidscanu14/).
 """
