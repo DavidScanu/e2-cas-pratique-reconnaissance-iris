@@ -2,7 +2,7 @@
 port = 5002
 
 [theme]
-base="light"
+base = "light"
 
 # Automatically rerun script when the file is modified on disk.
 # Default: false
