@@ -1,6 +1,6 @@
 <img src="https://img.freepik.com/free-photo/magnified-single-yellow-fish-eye-with-abstract-pattern-generated-by-ai_188544-9714.jpg"></img>
 
-# Cas Pratique : Reconnaissance d'iris
+# 👁️‍🗨️ E2 - Cas Pratique : Reconnaissance d'iris
 
 Ceci est le dépôt du **cas pratique** présenté pour le passage de titre de l'école Microsoft IA par Simplon et Isen, promotion 2023-2024 de Caen. 
 
@@ -22,6 +22,12 @@ Notebooks de création des modèles de Deep Learning. L'architecture utilisée e
 - une couche de sortie entrainable qui correspond au nombre de nos classes cibles.
 
 Cette architecture est un cas de **Transfer Learning**. Pour créer ces modèle de reconnaissance d'image, nous utilisons un modèle pré-entrainé auquel nous ajoutons une ou des couches entrainables sur nos données d'entrainement (les photos d'yeux des employés).
+
+| | |
+| --- | --- | 
+| Classification oeil gauche ou droit | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weiji14/deepbedmap/] |
+| Classification ID employé | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/weiji14/deepbedmap/] |
+
 
 ### Partie 1 : Classification oeil gauche ou droit
 
