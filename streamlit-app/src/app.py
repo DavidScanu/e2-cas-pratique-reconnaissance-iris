@@ -163,6 +163,7 @@ with col2:
           st.caption(f"Score de prédiction : {employee_score:.2%}")
 
 st.divider()
+
 """
-> 🎓 Projet développé par [David Scanu](https://www.linkedin.com/in/davidscanu14/).
+> 🎓 Projet développé par [David Scanu](https://www.linkedin.com/in/davidscanu14/), étudiant en intelligence artificielle 🤖 à l'[École Microsoft IA Caen par Simplon et ISEN](https://isen-caen.fr/ecole-ia-microsoft-by-simplon-et-isen-ouest/), 1ère promotion de Caen (2023-2024).
 """
