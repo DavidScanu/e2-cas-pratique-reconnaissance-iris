@@ -15,17 +15,17 @@ Vous êtes un développeur IA, votre entreprise vous a confié la mission de **d
 
 ## Application Streamlit
 
-Développement d'une application Streamlit pour offir une interface aux utilisateurs et réaliser des prédictions à partir de photos d'yeux.
+Application Streamlit de détection d'un employé à partir d'une photo de son oeil.
 
 <img src="images/mockup-streamlit-app.png" alt="Streamlit App">
 
 ## Notebooks
 
-Notebooks de création des modèles de Deep Learning. L'architecture utilisée est :
-- un modèle VGG16 entrainé sur ImageNet. 
+Notebooks de création des modèles de classification. L'architecture utilisée est :
+- un modèle **VGG16 entrainé sur ImageNet**. 
 - une couche de sortie entrainable qui correspond au nombre de nos classes cibles.
 
-Cette architecture est un cas d'**apprentissage par transfert** (Transfer Learning). Pour créer ces modèle de reconnaissance d'image, nous utilisons un modèle pré-entrainé auquel nous ajoutons une ou des couches entrainables sur nos données d'entrainement (les photos d'yeux des employés).
+Cette architecture est un cas d'**apprentissage par transfert** (transfer learning). Pour créer ces modèles de reconnaissance d'images, nous utilisons un modèle pré-entrainé auquel nous ajoutons une ou des couches entrainables sur nos données d'entrainement (les photos d'yeux des employés).
 
 | Notebook | Colab |
 | --- | --- |
