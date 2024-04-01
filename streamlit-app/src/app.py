@@ -39,7 +39,7 @@ with open("employees_info.json", 'r') as f:
 
 # LEFT-RIGHT
 # LR Classifier Model
-lr_classifier_path = "./models/lr_classifier_v2.h5"
+lr_classifier_path = "./models/lr_classifier_v3.h5"
 lr_classifier_restored = tf.keras.models.load_model(lr_classifier_path)
 # LR Label Encoder
 lr_label_encoder_path = "./models/lr_label_encoder.pkl"
@@ -65,10 +65,10 @@ def inference_lr(image_file, label_encoder):
 
 # ID Employé
 # ID Left Classifier Model
-id_left_classifier_path = "./models/id_left_classifier_v2.h5"
+id_left_classifier_path = "./models/id_left_classifier_v3.h5"
 id_left_classifier_restored = tf.keras.models.load_model(id_left_classifier_path)
 # ID Right Classifier Model
-id_right_classifier_path = "./models/id_right_classifier_v2.h5"
+id_right_classifier_path = "./models/id_right_classifier_v3.h5"
 id_right_classifier_restored = tf.keras.models.load_model(id_right_classifier_path)
 # ID Label Encoder
 id_label_encoder_path = "./models/id_label_encoder.pkl"
