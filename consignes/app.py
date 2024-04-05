@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
-from functions import * # Remplacez par l'importation de votre bibliothèque ML et de votre modèle
-
+# from functions import * # Remplacez par l'importation de votre bibliothèque ML et de votre modèle
 
 import pandas as pd
 import tensorflow as tf
@@ -11,6 +10,12 @@ from keras import regularizers
 from PIL import Image
 from keras.utils import to_categorical
 
+def preprocess_img(img,new_dim=(240,320)):
+    new_img=cv2.resize(img, (new_dim[1],new_dim[0]), interpolation = cv2.INTER_AREA)
+    mean = np.mean(new_img)
+    std = np.std(new_img)
+    new_img=(new_img-mean)/std
+    return new_img
 
 class ImagePredictionApp:
 
@@ -19,7 +24,6 @@ class ImagePredictionApp:
         self.root.title("Application d'Authentification")
 
         self.load_model()  # Chargez votre modèle ici
-
 
 
         self.select_button = tk.Button(root, text="Sélectionner une image", command=self.load_image)
@@ -36,7 +40,7 @@ class ImagePredictionApp:
 
     def load_model(self):
         # Chargez votre modèle ici en utilisant votre bibliothèque ML
-        self.model = tf.keras.models.load_model("vgg16_side_OG2ID_classif")
+        self.model = tf.keras.models.load_model("OG_id_left_classifier_vgg16.h5")
         self.model.trainable = False
 
         
