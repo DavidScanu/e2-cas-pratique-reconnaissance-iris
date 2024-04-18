@@ -14,6 +14,7 @@ import pickle
 import json
 
 import tensorflow as tf
+import keras
 from sklearn.preprocessing import LabelEncoder
 
 # Fucntions
@@ -23,6 +24,7 @@ def check_file_exists(file_path):
     else:
         return False
 
+# keras.config.enable_unsafe_deserialization()
 
 # Variables 
 img_width = 320
@@ -30,21 +32,39 @@ img_height = 240
 img_channels = 3
 img_dim = (img_height, img_width, img_channels)
 
+# Models path
+lr_classifier_path = "./models/v4/lr-v4-vgg16.h5"
+id_left_classifier_path = "./models/v4/id-left-v4-inceptionv3.keras"
+id_right_classifier_path = "./models/v4/id-right-v4-inceptionv3.keras"
+# label encoders path
+lr_label_encoder_path = "./models/v4/lr-label-encoder.pkl"
+id_label_encoder_path = "./models/v4/id-label-encoder.pkl"
 
 # Employees JSON
 with open("employees_info.json", 'r') as f:
     employees_dict = json.load(f)
 
 
+# Streamlit App
+st.set_page_config(
+    page_title="Eye Detector",
+    page_icon=":eye-in-speech-bubble:",
+    layout="centered"
+)
+
 
 # LEFT-RIGHT
 # LR Classifier Model
-lr_classifier_path = "./models/lr_classifier_v3.h5"
-lr_classifier_restored = tf.keras.models.load_model(lr_classifier_path)
+@st.cache_resource
+def load_lr_model(model_path):
+    lr_model = keras.models.load_model(model_path)
+    return lr_model
+lr_classifier_restored = load_lr_model(lr_classifier_path)
+
 # LR Label Encoder
-lr_label_encoder_path = "./models/lr_label_encoder.pkl"
 with open(lr_label_encoder_path, 'rb') as f:
-    lr_label_encoder = pickle.load(f) # deserialize using load()
+    lr_label_encoder = pickle.load(f)
+
 # Prédiction Gauche-Droite
 def inference_lr(image_file, label_encoder):
     """
@@ -65,15 +85,21 @@ def inference_lr(image_file, label_encoder):
 
 # ID Employé
 # ID Left Classifier Model
-id_left_classifier_path = "./models/id_left_classifier_v3.h5"
-id_left_classifier_restored = tf.keras.models.load_model(id_left_classifier_path)
+@st.cache_resource
+def load_id_left_model(model_path):
+    id_left_model = keras.models.load_model(model_path)
+    return id_left_model
+id_left_classifier_restored = load_id_left_model(id_left_classifier_path)
 # ID Right Classifier Model
-id_right_classifier_path = "./models/id_right_classifier_v3.h5"
-id_right_classifier_restored = tf.keras.models.load_model(id_right_classifier_path)
+@st.cache_resource
+def load_id_right_model(model_path):
+    id_right_model = keras.models.load_model(model_path)
+    return id_right_model
+id_right_classifier_restored = load_id_right_model(id_right_classifier_path)
+
 # ID Label Encoder
-id_label_encoder_path = "./models/id_label_encoder.pkl"
 with open(id_label_encoder_path, 'rb') as f:
-    id_label_encoder = pickle.load(f) # deserialize using load()
+    id_label_encoder = pickle.load(f)
 
 # Prédiction ID employé
 def id_inference(image_file, side):
@@ -105,12 +131,7 @@ def find_employee_infos(id_employee):
 
 
 
-# Streamlit App
-st.set_page_config(
-    page_title="Eye Detector",
-    page_icon=":eye-in-speech-bubble:",
-    layout="centered"
-)
+
 
 # Header
 st.image('images/cover-02.jpg')
