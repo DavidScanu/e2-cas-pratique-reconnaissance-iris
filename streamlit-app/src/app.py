@@ -84,12 +84,14 @@ def inference_lr(image_file, label_encoder):
 
 
 # ID Employé
+
 # ID Left Classifier Model
 @st.cache_resource
 def load_id_left_model(model_path):
     id_left_model = keras.models.load_model(model_path)
     return id_left_model
 id_left_classifier_restored = load_id_left_model(id_left_classifier_path)
+
 # ID Right Classifier Model
 @st.cache_resource
 def load_id_right_model(model_path):
