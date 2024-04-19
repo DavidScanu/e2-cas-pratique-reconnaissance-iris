@@ -52,7 +52,6 @@ st.set_page_config(
     layout="centered"
 )
 
-
 # LEFT-RIGHT
 # LR Classifier Model
 @st.cache_resource
@@ -136,57 +135,62 @@ def find_employee_infos(id_employee):
 
 
 # Header
-st.image('images/cover-02.jpg')
-st.header(":eye-in-speech-bubble: Eye Detector", divider='rainbow')
-st.markdown("Une applicaton de **reconnaissance d’iris** pour authentifier vos employés.")
-
+st.sidebar.image('images/cover-02.jpg')
+st.sidebar.header(":eye-in-speech-bubble: Eye Detector", divider='rainbow')
+st.sidebar.markdown("Une applicaton de **reconnaissance d’iris** pour authentifier vos employés.")
 
 # Image Uploader
-st.markdown("### Choisissez une image")
-image = st.file_uploader(
+st.sidebar.markdown("### Choisissez une image")
+image = st.sidebar.file_uploader(
     label="Choisissez une image",
     type=['png', 'jpg', 'jpeg', 'bmp'],
     accept_multiple_files=False,
     label_visibility="collapsed"
 )
+
 if image is not None:
-    bytes_data = image.read() # bytes
-    image_pil = Image.open(io.BytesIO(bytes_data)) # PIL Object
     with st.spinner('Wait for it...'):
         # Détection du côté de l'oeil
+        bytes_data = image.read() # bytes
+        image_pil = Image.open(io.BytesIO(bytes_data)) # PIL Object
         lr_pred_class, lr_pred_score = inference_lr(image_pil, lr_label_encoder)
-        # Oeil gauche
-        if lr_pred_class == 'left':
-            st.success(f"Oeil détecté : Gauche &mdash; (Score de prédiction : {lr_pred_score:.2%})")
-        # Oeil droite
-        elif lr_pred_class == 'right':
-            st.success(f"Oeil détecté : Droit &mdash; (Score de prédiction : {lr_pred_score:.2%})")
+        if lr_pred_score:
+            with st.container(border=True):
+                # Oeil gauche
+                if lr_pred_class == 'left':
+                    st.subheader("👁️ Oeil détecté : Oeil gauche 👈")
+                # Oeil droite
+                elif lr_pred_class == 'right':
+                    st.subheader("👁️ Oeil détecté : Oeil droit 👉")
+                st.success(f"Score de prédiction : **{lr_pred_score:.2%}**")
+        else:
+            st.error("Une erreure s'est produite.")
 
-col1, col2 = st.columns(2)
 
-with col1:
-    if image is not None:
-        # Montrer l'image dans le navigateur
-        st.image(image_pil)
+if image is not None:
+    # Prédiction ID de l'employé          
+    employee_id, employee_score = id_inference(image_pil, lr_pred_class)
+    dict_employee = find_employee_infos(employee_id)
+    with st.spinner('Wait for it...'):
+        with st.container(border=True):
+            st.header(f"Bienvenue {dict_employee['nom']} !")
+            col1, col2 = st.columns(2)
+            with col1:
+                st.image(image_pil)
+            with col2:
+                st.markdown(f"""
+                            - 🔐 ID employé(e) : :blue[{employee_id}]
+                            - 💼 Poste : {dict_employee['poste']} 
+                            - 📅 Année d'embauche : {dict_employee['annee_embauche']}
+                            - 👫 Genre : {dict_employee['genre']}
+                            """)
+            if employee_score is not None:
+                st.success(f"Score de prédiction : **{employee_score:.2%}**")
+            
 
-with col2:
-    # Détection ID + informations de l'employé
-    if image is not None:
-        with st.spinner('Wait for it...'):
-          # Prédiction ID de l'employé
-          employee_id, employee_score = id_inference(image_pil, lr_pred_class)
-          dict_employee = find_employee_infos(employee_id)
-          st.markdown(f"""
-                      # {dict_employee['nom']}
-                      - ID employé(e) : {employee_id}
-                      - Poste : {dict_employee['poste']} 
-                      - Année d'embauche : {dict_employee['annee_embauche']}
-                      - Genre : {dict_employee['genre']}
-                      """)
-          st.caption(f"Score de prédiction : {employee_score:.2%}")
-
-st.divider()
-
-"""
-> 🎓 Projet développé par [David Scanu](https://www.linkedin.com/in/davidscanu14/), étudiant en intelligence artificielle 🤖 à l'[École Microsoft IA Caen par Simplon et ISEN](https://isen-caen.fr/ecole-ia-microsoft-by-simplon-et-isen-ouest/), 1ère promotion de Caen (2023-2024).
-"""
+# st.sidebar.divider()
+# st.sidebar.markdown(
+#     """
+#     🎓 Projet développé par [David Scanu](https://www.linkedin.com/in/davidscanu14/), étudiant en intelligence artificielle 🤖 à l'[École Microsoft IA Caen par Simplon et ISEN](https://isen-caen.fr/ecole-ia-microsoft-by-simplon-et-isen-ouest/), 1ère promotion de Caen (2023-2024).
+#     """
+# )
