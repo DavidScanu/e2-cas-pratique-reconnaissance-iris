@@ -13,24 +13,30 @@ Vous êtes un développeur IA, votre entreprise vous a confié la mission de **d
 - `consignes` : Ensemble des consignes et des données pour mener le projet.
 - `streamlit-app` : Application front-end pour effectuer les prédictions à partir de photos d'yeux.
 
+## Améliorations du programme d’IA
+
+Pour s’assurer d’améliorer les performances du nouveau modèle de détection biométriques, voici les préconisations essentielles :
+
+- **Développer 3 classificateurs** : 
+  - Un classificateur qui détecte l'œil gauche ou l'œil droit
+  - Un classificateur qui détecte l’ID de l’employé à partir de l'œil gauche
+  - Un classificateur qui détecte l’ID de l’employé à partir de l'œil droit
+- **Essayer différentes architecture de modèle** : essayer différentes architectures pré-entraînées sur ImageNet disponibles avec Keras.
+- **Augmentation de données** : présenter plus de photos lors de l'entraînement aidera le nouveau modèle à mieux classer les images d’yeux. 
+- **Modifier les hyperparamètres** : en jouant sur les hyperparamètres, nous pourrons obtenir un gain de performance.
+
+## Notebooks
+
+| Notebook | Colab |
+| --- | --- |
+| Classificateur qui détecte si l'image est un oeil gauche ou un oeil droit. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/13hmSb_BbzNGdZeXghUA-ds7vW8Kd-UxW?usp=sharing) |
+| Classificateur qui retrouve l'identifiant d'un employé à partir de l'image de son oeil gauche ou droit | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ISljOtzBAca0GH_ixy8elaIz30Uro3dt?usp=sharing) |
+
 ## Application Streamlit
 
 Application Streamlit de détection d'un employé à partir d'une photo de son oeil.
 
 <img src="images/mockup-streamlit-app.png" alt="Streamlit App">
-
-## Notebooks
-
-Notebooks de création des modèles de classification. L'architecture utilisée est :
-- un modèle **VGG16 entrainé sur ImageNet**. 
-- une couche de sortie entrainable qui correspond au nombre de nos classes cibles.
-
-Cette architecture est un cas d'**apprentissage par transfert** (transfer learning). Pour créer ces modèles de reconnaissance d'images, nous utilisons un modèle pré-entrainé auquel nous ajoutons une ou des couches entrainables sur nos données d'entrainement (les photos d'yeux des employés).
-
-| Notebook | Colab |
-| --- | --- |
-| Classificateur qui détecte si l'image est un oeil gauche ou un oeil droit. | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1mGeS6s608tzzBAyIzgediilZJLlF9op9?usp=sharing) |
-| Classificateur qui retrouve l'identifiant d'un employé à partir de l'image de son oeil gauche ou droit | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/11rHCtLBCq2ctJ6eLQ8GvShW0nJHu5Acu?usp=sharing) |
 
 ## A propos 
 
