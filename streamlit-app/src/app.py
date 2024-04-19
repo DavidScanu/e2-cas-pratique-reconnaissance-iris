@@ -34,11 +34,11 @@ img_dim = (img_height, img_width, img_channels)
 
 # Models path
 lr_classifier_path = "./models/v4/lr-v4-vgg16.h5"
-id_left_classifier_path = "./models/v4/id-left-v4-inceptionv3.keras"
-id_right_classifier_path = "./models/v4/id-right-v4-inceptionv3.keras"
+id_left_classifier_path = "./models/v4/id-left-xception.keras"
+id_right_classifier_path = "./models/v4/id-right-xception.keras"
 # label encoders path
 lr_label_encoder_path = "./models/v4/lr-label-encoder.pkl"
-id_label_encoder_path = "./models/v4/id-label-encoder.pkl"
+id_label_encoder_path = "./models/v4/id_label_encoder.pkl"
 
 # Employees JSON
 with open("employees_info.json", 'r') as f:
