@@ -131,9 +131,6 @@ def find_employee_infos(id_employee):
     return employees_dict[str(id_employee)]
 
 
-
-
-
 # Header
 st.sidebar.image('images/cover-02.jpg')
 st.sidebar.header(":eye-in-speech-bubble: Eye Detector", divider='rainbow')
@@ -188,9 +185,9 @@ if image is not None:
                 st.success(f"Score de prédiction : **{employee_score:.2%}**")
             
 
-# st.sidebar.divider()
-# st.sidebar.markdown(
-#     """
-#     🎓 Projet développé par [David Scanu](https://www.linkedin.com/in/davidscanu14/), étudiant en intelligence artificielle 🤖 à l'[École Microsoft IA Caen par Simplon et ISEN](https://isen-caen.fr/ecole-ia-microsoft-by-simplon-et-isen-ouest/), 1ère promotion de Caen (2023-2024).
-#     """
-# )
+st.sidebar.divider()
+st.sidebar.markdown(
+    """
+    🎓 Projet développé par [David Scanu](https://www.linkedin.com/in/davidscanu14/), étudiant en intelligence artificielle 🤖 à l'[École Microsoft IA Caen par Simplon et ISEN](https://isen-caen.fr/ecole-ia-microsoft-by-simplon-et-isen-ouest/), 1ère promotion de Caen (2023-2024).
+    """
+)
