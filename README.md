@@ -36,7 +36,7 @@ Pour s’assurer d’améliorer les performances du nouveau modèle de détectio
 
 Application Streamlit de détection d'un employé à partir d'une photo de son oeil.
 
-<img src="images/mockup-streamlit-app.png" alt="Streamlit App">
+<img src="images/mockup-streamlit-app-04.png" alt="Streamlit App">
 
 ## A propos 
 
